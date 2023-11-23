@@ -12,6 +12,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Provider Sample')),
       body: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CountPage(),
         ],
