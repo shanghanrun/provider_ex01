@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_ex01/count_page.dart';
-import 'countProvider.dart';
+import 'provider/counter.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var counter = Provider.of<Counter>(context);
+    var counter = Provider.of<Counter>(context, listen: false);
     return Scaffold(
       appBar: AppBar(title: const Text('Provider Sample')),
       body: const Column(
