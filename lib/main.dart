@@ -1,3 +1,4 @@
+import 'package:provider_ex01/provider/bottom.dart';
 import 'package:provider_ex01/provider/counter.dart';
 import 'package:provider_ex01/home.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +19,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChangeNotifierProvider(
-        create: (context) => Counter(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => Counter()),
+          ChangeNotifierProvider(create: (context) => Bottom()),
+        ],
         child: const Home(),
       ),
     );

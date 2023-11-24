@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_ex01/count_page.dart';
+import 'package:provider_ex01/movie_page.dart';
+import 'provider/bottom.dart';
 import 'provider/counter.dart';
 
 class Home extends StatelessWidget {
@@ -8,10 +10,22 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var counter = Provider.of<Counter>(context, listen: false);
+    var counterPro = Provider.of<Counter>(context, listen: false);
+    var bottomPro = Provider.of<Bottom>(context);
+    Widget _selectedPage() {
+      if (bottomPro.currentPage == 1) {
+        return const MoviePage();
+      } else {
+        return const CountPage();
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text('Provider Sample')),
-      body: Container(),
+      body: _selectedPage(),
+      // body: (bottomPro.currentPage == 1)
+      //       ? MoviePage()
+      //       : CountPage(),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -19,11 +33,21 @@ class Home extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.business), label: '회사'),
           BottomNavigationBarItem(icon: Icon(Icons.school), label: '학교'),
         ],
-        currentIndex: 0,
+        type: BottomNavigationBarType.fixed, // 모든 아이콘이 이동하지 않도록 고정된 타입 설정
+        currentIndex: bottomPro.currentPage,
         selectedItemColor: Colors.red,
-        onTap: (index) {},
+        selectedFontSize: 14.0, // 선택된 라벨 폰트 사이즈
+        unselectedFontSize: 12.0, // 선택되지 않은 라벨 폰트 사이즈
+        selectedLabelStyle:
+            const TextStyle(fontWeight: FontWeight.bold), // 선택된 라벨 폰트 스타일
+        unselectedLabelStyle:
+            const TextStyle(fontWeight: FontWeight.normal), // 선택되지 않은 라벨 폰트 스타일
+        unselectedItemColor: Colors.grey.withOpacity(0.7), // 여기서 투명도 조절
+        onTap: (index) {
+          print('$index 가 선택되었습니다.');
+          bottomPro.updatePage(index);
+        },
       ),
-
       //     const Column(
       //       mainAxisAlignment: MainAxisAlignment.center,
       //       children: [
@@ -40,7 +64,7 @@ class Home extends StatelessWidget {
       //               iconSize: 50,
       //               icon: const Icon(Icons.add_circle, color: Colors.red),
       //               onPressed: () {
-      //                 counter.add();
+      //                 counterPro.add();
       //               },
       //             ),
       //             const SizedBox(width: 30, height: 30),
@@ -49,7 +73,7 @@ class Home extends StatelessWidget {
       //               icon: const Icon(Icons.remove_circle_outline_rounded,
       //                   color: Colors.blue),
       //               onPressed: () {
-      //                 counter.minus();
+      //                 counterPro.minus();
       //               },
       //             ),
       //             const SizedBox(width: 30, height: 30),
