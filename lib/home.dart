@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_ex01/count_page.dart';
-import 'package:provider_ex01/movie_page.dart';
+import 'package:provider_ex01/page/count_page.dart';
+import 'package:provider_ex01/page/movie_page.dart';
+import 'package:provider_ex01/provider/moviePro.dart';
 import 'provider/bottom.dart';
 import 'provider/counter.dart';
 
@@ -12,8 +13,10 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     var counterPro = Provider.of<Counter>(context, listen: false);
     var bottomPro = Provider.of<Bottom>(context);
+    var moviePro = Provider.of<MoviePro>(context);
     Widget _selectedPage() {
       if (bottomPro.currentPage == 1) {
+        moviePro.loadMovies();
         return const MoviePage();
       } else {
         return const CountPage();

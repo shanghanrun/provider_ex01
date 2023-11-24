@@ -3,6 +3,7 @@ import 'package:provider_ex01/provider/counter.dart';
 import 'package:provider_ex01/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider_ex01/provider/moviePro.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => Counter()),
           ChangeNotifierProvider(create: (context) => Bottom()),
+          ChangeNotifierProvider(create: (context) => MoviePro()),
         ],
         child: const Home(),
       ),
