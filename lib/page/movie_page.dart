@@ -19,19 +19,26 @@ class MoviePage extends StatelessWidget {
                 return Card(
                   elevation: 5,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(width: 10),
+                      Image.network(moviePro.imageList[i],
+                          width: 140, height: 160, fit: BoxFit.fill),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            const SizedBox(height: 2),
                             Text(
-                                '${moviePro.movies[i].title}'), //Map을 클래스로 변환했기 때문에
+                              '${moviePro.movies[i].title}',
+                              style: const TextStyle(
+                                  fontSize: 18, color: Colors.blue),
+                            ), //Map을 클래스로 변환했기 때문에
                             const SizedBox(height: 5), // 텍스트 사이 간격 조정
                             Text('${moviePro.movies[i].overview}'),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                           ],
                         ),
                       ),
