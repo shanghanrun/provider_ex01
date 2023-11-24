@@ -38,7 +38,7 @@ class Home extends StatelessWidget {
         ],
         type: BottomNavigationBarType.fixed, // 모든 아이콘이 이동하지 않도록 고정된 타입 설정
         currentIndex: bottomPro.currentPage,
-        selectedItemColor: Colors.red,
+        selectedItemColor: const Color.fromARGB(255, 255, 102, 7),
         selectedFontSize: 14.0, // 선택된 라벨 폰트 사이즈
         unselectedFontSize: 12.0, // 선택되지 않은 라벨 폰트 사이즈
         selectedLabelStyle:

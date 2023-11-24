@@ -33,11 +33,20 @@ class MoviePage extends StatelessWidget {
                             const SizedBox(height: 2),
                             Text(
                               '${moviePro.movies[i].title}',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                  fontSize: 18, color: Colors.blue),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Color.fromARGB(255, 88, 119, 253),
+                              ),
                             ), //Map을 클래스로 변환했기 때문에
                             const SizedBox(height: 5), // 텍스트 사이 간격 조정
-                            Text('${moviePro.movies[i].overview}'),
+                            Text(
+                              '${moviePro.movies[i].overview}',
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis, //넘치는 것 ...
+                            ),
                             const SizedBox(height: 5),
                           ],
                         ),
