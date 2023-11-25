@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Provider Sample')),
+      // appBar: AppBar(title: const Text('Provider Sample')),
       body: _selectedPage(),
       // body: (bottomPro.currentPage == 1)
       //       ? MoviePage()
