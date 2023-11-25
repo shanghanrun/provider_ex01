@@ -6,6 +6,8 @@ class MoviePro extends ChangeNotifier {
   List<Movie> _movies = [];
   List<Movie> get movies => _movies;
   List<String> imageList = [];
+  Map<String, dynamic> _detailedMovie = {};
+  Map<String, dynamic> get detailedMovie => _detailedMovie;
 
   MovieRepository movieRepository = MovieRepository();
 
@@ -18,6 +20,11 @@ class MoviePro extends ChangeNotifier {
           'https://image.tmdb.org/t/p/w500$temp'; //temp에  /포함되어 있다.
       imageList.add(imagePath);
     }
+    notifyListeners();
+  }
+
+  getMovieDetail(int movieId) async {
+    _detailedMovie = await movieRepository.getMovieDetail(movieId);
     notifyListeners();
   }
 }

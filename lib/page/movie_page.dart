@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_ex01/model/movie.dart';
+import 'package:provider_ex01/page/movie_detail.dart';
 import 'package:provider_ex01/provider/moviePro.dart';
 import 'package:provider/provider.dart'; // provider 패키지 임포트 추가
 
@@ -13,30 +14,74 @@ class MoviePage extends StatelessWidget {
     Widget _makeOneMovie(Movie movie) {
       return Row(
         children: [
-          Image.network(movie.posterUrl),
+          ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20)),
+              // borderRadius: const BorderRadius.vertical(
+              //     top: Radius.circular(20), bottom: Radius.circular(20)),
+              child: Image.network(movie.posterUrl)),
           Expanded(
-            child: Column(
-              children: [
-                Text(
-                  movie.title!,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    movie.title!,
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: Text(
+                      movie.overview!,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 6,
+                      style: const TextStyle(
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           )
         ],
       );
     }
 
-    Widget _makeListView2() {
+    Widget _makeListView2({required MoviePro moviePro}) {
       return ListView.separated(
         itemCount: movieList.length,
         itemBuilder: (context, i) {
-          return Container(
-              height: 200,
-              color: const Color.fromARGB(255, 209, 215, 206),
-              child: _makeOneMovie(movieList[i]));
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () async {
+                await moviePro.getMovieDetail(movieList[i].id!);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MovieDetail(moviePro: moviePro)));
+              },
+              child: Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 236, 244, 233),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                          color: const Color.fromARGB(255, 100, 99, 99)
+                              .withOpacity(0.3),
+                          spreadRadius: 3,
+                          blurRadius: 3,
+                          offset: const Offset(0, 0)),
+                    ],
+                  ),
+                  child: _makeOneMovie(movieList[i])),
+            ),
+          );
         },
         separatorBuilder: (context, i) {
           return const Divider();
@@ -47,7 +92,7 @@ class MoviePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Movie Page')),
       body: (moviePro.movies.isNotEmpty)
-          ? _makeListView2()
+          ? _makeListView2(moviePro: moviePro)
           // ? _makeListView(moviePro: moviePro)
           : const Center(child: CircularProgressIndicator()),
     );

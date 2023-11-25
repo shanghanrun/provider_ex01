@@ -19,6 +19,19 @@ class MovieRepository {
     return [];
   }
 
+  Future<Map<String, dynamic>> getMovieDetail(int movieId) async {
+    Uri url = Uri.parse(
+        'https://api.themoviedb.org/3/movie/${movieId.toString()}?api_key=45dfb0ff4a22c1a95d0041615999de56');
+    var response = await http.get(url);
+    var data = await jsonDecode(response.body);
+    if (data != null) {
+      return data;
+    } else {
+      print('못 받아옴');
+      return {};
+    }
+  }
+
   // try {
   //     var response = await http.get(url); // header도 포함되어 온다.
   //     if (response.body != null) {
